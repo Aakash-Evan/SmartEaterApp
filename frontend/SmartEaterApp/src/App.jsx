@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css'
 
 import IntroPage from './components/IntroPage/IntroPage'
-import SmartEaterPage from './components/SmartEaterPage/SmaterEaterPage';
+import SmartEaterPage from './components/SmartEaterPage/SmartEaterPage';
 
 
 function App() {

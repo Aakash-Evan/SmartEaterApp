@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unescaped-entities */
 
 import styles from './Contact.module.css';
-import { getImageUrl } from '../../../../utils';
+import { getImageUrl } from '../../utils';
 
 function Contact() {
     return (
