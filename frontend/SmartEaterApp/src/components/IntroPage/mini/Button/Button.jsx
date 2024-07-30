@@ -2,6 +2,7 @@
 /* eslint-disable react/no-unescaped-entities */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './Button.module.css';
 
 function Button() {
@@ -11,11 +12,11 @@ function Button() {
                 <p className={styles.description}>
                     Explore our SmartEater website! The button below will take you to our WebApp, where you can enter your meals, track your diet, and receive personalized meal recommendations to help you maintain a balanced and healthy lifestyle.
                 </p>
-                <a href="https://your-webapp-url.com" target="_self" rel="noopener noreferrer">
+                <Link to="/smart-eater">
                     <button type="button" className={styles.button}>
                         Go to SmartEater WebApp
                     </button>
-                </a>
+                </Link>
             </div>
         </section>
     );
