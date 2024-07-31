@@ -12,6 +12,7 @@ function App() {
       <div>
         <SignedIn>
           <UserButton />
+          <SmartEaterPage />
         </SignedIn>
         <Routes>
           <Route
@@ -22,14 +23,7 @@ function App() {
               </SignedOut>
             }
           />
-          <Route
-            path="/smart-eater"
-            element={
-              <SignedIn>
-                <SmartEaterPage />
-              </SignedIn>
-            }
-          />
+          
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
@@ -38,3 +32,16 @@ function App() {
 }
 
 export default App;
+
+/*
+<Route
+            path="/smart-eater"
+            element={
+              <SignedIn>
+                <SmartEaterPage />
+              </SignedIn>
+            }
+          />
+
+This went after the first <Route> in <Routes>
+*/
