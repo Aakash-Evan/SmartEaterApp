@@ -1,4 +1,4 @@
-import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
+import { SignedIn, SignedOut } from "@clerk/clerk-react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 import './App.css';
@@ -11,7 +11,6 @@ function App() {
     <Router>
       <div>
         <SignedIn>
-          <UserButton />
           <SmartEaterPage />
         </SignedIn>
         <Routes>
