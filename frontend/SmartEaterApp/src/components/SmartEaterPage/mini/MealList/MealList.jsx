@@ -5,7 +5,11 @@ function MealList() {
 
     return (
         <div>
-            <h1>Meal List</h1>
+            <Link to="/">
+                    <button type="button" className="btn btn-primary">
+                        Go to SmartEater Home
+                    </button>
+                </Link>
         </div>
 
     )
