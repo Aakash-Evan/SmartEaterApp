@@ -23,9 +23,6 @@ function Header() {
                 <ul className={`${styles.menuItems}  ${showMenu && styles.showMenu}`}
                 onClick = {() => setShowMenu(false)}>
                     <li>
-                        <a href="#home">Home</a>
-                    </li>
-                    <li>
                         <a href="#about">About</a>
                     </li>
                     <li>
