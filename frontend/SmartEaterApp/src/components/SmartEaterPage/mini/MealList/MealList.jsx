@@ -2,6 +2,15 @@
 import styles from './MealList.module.css';
 
 function MealList() {
+    /*
+
+    TODO:
+    - Decide what each meal card should display (eg. name, description, etc.)
+    - Implement "show more options" button and cap it at 6 meals
+    - Figure out how to get the data from the backend
+
+    */
+
     return (
         <div className={styles.container}>
             <button className={`btn btn-primary ${styles.button}`}>Generate Next Meal Options</button>
