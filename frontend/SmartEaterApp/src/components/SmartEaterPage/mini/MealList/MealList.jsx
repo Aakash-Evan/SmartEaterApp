@@ -1,5 +1,8 @@
 /* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from 'react';
 import styles from './MealList.module.css';
+import Axios from 'axios';
+
 
 function MealList() {
     /*
@@ -11,13 +14,24 @@ function MealList() {
 
     */
 
+    const [mealName, setMealName] = useState('');
+
+    const getData = async () => {
+        const response = await Axios.get("http://localhost:5001/getData");
+        setMealName(response.data);
+    }
+
+    useEffect(() => {
+        getData();
+    }, []);
+
     return (
         <div className={styles.container}>
             <button className={`btn btn-primary ${styles.button}`}>Generate Next Meal Options</button>
             <div className={styles.mealListContainer}>
                 <ul className={styles.mealList}>
                     <li className={styles.mealListItem}>
-                        <p>Meal 1</p>
+                        <p>{mealName}</p>
                         <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                     </li>
                     <li className={styles.mealListItem}>
