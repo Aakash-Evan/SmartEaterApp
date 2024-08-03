@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Axios from 'axios';
 import styles from './MealLogger.module.css';
 
 function MealLogger() {
@@ -8,9 +9,14 @@ function MealLogger() {
         setMealName(event.target.value);
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log('Meal logged:', mealName);
+        try {
+            const response = await Axios.post('http://localhost:5001/logMeal', { mealName });
+            console.log(response.data.message);
+        } catch (error) {
+            console.error('There was an error logging the meal:', error);
+        }
         setMealName('');
     };
 

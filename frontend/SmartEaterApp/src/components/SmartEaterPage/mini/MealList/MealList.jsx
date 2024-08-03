@@ -3,23 +3,17 @@ import React, { useState, useEffect } from 'react';
 import styles from './MealList.module.css';
 import Axios from 'axios';
 
-
 function MealList() {
-    /*
-
-    TODO:
-    - Decide what each meal card should display (eg. name, description, etc.)
-    - Implement "show more options" button and cap it at 6 meals
-    - Figure out how to get the data from the backend
-
-    */
-
-    const [mealName, setMealName] = useState('');
+    const [meals, setMeals] = useState([]);
 
     const getData = async () => {
-        const response = await Axios.get("http://localhost:5001/getData");
-        setMealName(response.data);
-    }
+        try {
+            const response = await Axios.get("http://localhost:5001/getData");
+            setMeals(response.data); // Update state with the meals data
+        } catch (error) {
+            console.error('There was an error fetching the data:', error);
+        }
+    };
 
     useEffect(() => {
         getData();
@@ -27,33 +21,15 @@ function MealList() {
 
     return (
         <div className={styles.container}>
-            <button className={`btn btn-primary ${styles.button}`}>Generate Next Meal Options</button>
+            <button className={`btn btn-primary ${styles.button}`} onClick={getData}>Generate Next Meal Options</button>
             <div className={styles.mealListContainer}>
                 <ul className={styles.mealList}>
-                    <li className={styles.mealListItem}>
-                        <p>{mealName}</p>
-                        <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </li>
-                    <li className={styles.mealListItem}>
-                        <p>Meal 2</p>
-                        <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </li>
-                    <li className={styles.mealListItem}>
-                        <p>Meal 3</p>
-                        <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </li>
-                    <li className={styles.mealListItem}>
-                        <p>Meal 4</p>
-                        <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </li>
-                    <li className={styles.mealListItem}>
-                        <p>Meal 5</p>
-                        <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </li>
-                    <li className={styles.mealListItem}>
-                        <p>Meal 6</p>
-                        <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </li>
+                    {meals.map((meal, index) => (
+                        <li key={index} className={styles.mealListItem}>
+                            <p>{meal.name}</p>
+                            <p>Description: {meal.description}</p>
+                        </li>
+                    ))}
                 </ul>
             </div>
         </div>
