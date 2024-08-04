@@ -12,14 +12,10 @@ app.get('/getData', (req, res) => {
 });
 
 app.post('/logMeal', (req, res) => {
-    const { mealItems } = req.body; // Extract mealItems from the request body
-    if (Array.isArray(mealItems)) {
-        meals.push(mealItems); // Add the array of mealItems to the meals list
-        console.log("Received meal: ");
-        res.status(200).send({ message: 'Meals logged successfully' });
-    } else {
-        res.status(400).send({ message: 'Invalid mealItems format' });
-    }
+    const { meal } = req.body;
+    console.log('Received meal:', meal);
+    meals.push(meal); // Add the meal to the list
+    res.status(200).send({ message: 'Meal logged successfully' });
 });
 
 app.listen(5001, () => console.log('Server running on port 5001'));

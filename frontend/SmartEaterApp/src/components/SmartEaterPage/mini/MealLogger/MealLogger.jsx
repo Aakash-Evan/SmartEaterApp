@@ -5,6 +5,8 @@ import styles from './MealLogger.module.css';
 function MealLogger() {
     const [mealItems, setMealItems] = useState([]);
     const [mealName, setMealName] = useState('');
+    const [mealDate, setMealDate] = useState('');
+    const [mealTime, setMealTime] = useState('');
     const [mealItemName, setMealItemName] = useState('');
     const [mealItemDescription, setMealItemDescription] = useState('');
     const [mealItemUnit, setMealItemUnit] = useState('');
@@ -22,6 +24,10 @@ function MealLogger() {
             setMealItemAmount(value);
         } else if (name === 'mealName') {
             setMealName(value);
+        } else if (name === 'mealDate') {
+            setMealDate(value);
+        } else if (name === 'mealTime') {
+            setMealTime(value);
         }
     };
 
@@ -42,10 +48,20 @@ function MealLogger() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        const meal = {
+            name: mealName,
+            date: mealDate,
+            time: mealTime,
+            numItems: mealItems.length,
+            items: mealItems,
+        };
         try {
-            const response = await Axios.post('http://localhost:5001/logMeal', { mealItems });
+            const response = await Axios.post('http://localhost:5001/logMeal', { meal });
             console.log(response.data.message);
             setMealItems([]); // Clear the meal items after submission
+            setMealName('');
+            setMealDate('');
+            setMealTime('');
         } catch (error) {
             console.error('There was an error logging the meal:', error);
         }
@@ -109,38 +125,41 @@ function MealLogger() {
                     </li>
                 ))}
             </ul>
-            <input type="text" id="mealName" name="mealName" className="form-control" placeholder="Dinner" value={mealName} onChange={handleChange}></input>
+            <input 
+                type="text" 
+                id="mealName" 
+                name="mealName" 
+                className="form-control" 
+                placeholder="Meal Name" 
+                value={mealName} 
+                onChange={handleChange}
+            />
+            <input 
+                type="date" 
+                id="mealDate" 
+                name="mealDate" 
+                className="form-control" 
+                value={mealDate} 
+                onChange={handleChange}
+            />
+            <input 
+                type="time" 
+                id="mealTime" 
+                name="mealTime" 
+                className="form-control" 
+                value={mealTime} 
+                onChange={handleChange}
+            />
             <button 
                 id="mealSubmit" 
                 type="submit" 
                 className={`btn btn-danger ${styles.button}`} 
                 onClick={handleSubmit}
             >
-                Add Meal
+                Log Meal
             </button>
         </div>
     );
 }
 
 export default MealLogger;
-
-
-
-
-/*
-
-<form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    id="mealName"
-                    name="mealName"
-                    placeholder="Enter meal name"
-                    className="form-control"
-                    value={mealName}
-                    onChange={handleChange}
-                    required
-                />
-                <button id="mealSubmit" type="submit" className={`btn btn-primary ${styles.button}`}>Log Meal</button>
-            </form>
-
-*/
