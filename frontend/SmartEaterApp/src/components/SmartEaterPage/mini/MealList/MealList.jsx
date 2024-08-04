@@ -9,7 +9,7 @@ function MealList() {
     const getData = async () => {
         try {
             const response = await Axios.get("http://localhost:5001/getData");
-            setMeals(response.data); // Update state with the meals data
+            setMeals(response.data); // Update state with the meals data -> change to AI recommended meals, this is done in backend
         } catch (error) {
             console.error('There was an error fetching the data:', error);
         }
