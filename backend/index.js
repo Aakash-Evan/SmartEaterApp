@@ -1,5 +1,14 @@
+require('dotenv').config();
 import express from 'express';
 import cors from 'cors';
+//const mongoose = require("mongoose");
+
+// Connect to MongoDB
+//mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+
+
+
+
 
 const app = express();
 app.use(cors());
