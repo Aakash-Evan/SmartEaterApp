@@ -31,6 +31,7 @@ const mealSchema = new mongoose.Schema({
     ]
 });
 
+
 // Create a model based on the schema
 const Meal = mongoose.model('Meal', mealSchema);
 
@@ -48,7 +49,18 @@ app.get('/getData', async (req, res) => {
 // POST endpoint to log a new meal
 app.post('/logMeal', async (req, res) => {
     try {
-        const meal = new Meal(req.body);
+        const mealName = req.body.meal.name;
+        const mealDate = req.body.meal.date;
+        const mealTime = req.body.meal.time;
+        const mealItems = req.body.meal.items;
+        console.log(mealName);
+        const meal = new Meal({ 
+            name: mealName,
+            date: mealDate,
+            time: mealTime,
+            numMealItems: mealItems.length,
+            mealItems: mealItems
+         });
         await meal.save();
         res.status(200).send({ message: 'Meal logged successfully' });
         console.log('Meal logged successfully');
