@@ -13,10 +13,12 @@
     "@clerk/clerk-react": "^5.2.10",
     "axios": "^1.7.3",
     "bootstrap": "^5.3.3",
+    "dotenv": "^16.4.5",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.4",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.25.1"
+    "react-router-dom": "^6.25.1",
+    "smarteaterapp": "file:"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
