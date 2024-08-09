@@ -78,7 +78,7 @@ function MealLogger() {
     return (
         <div className={styles.container}>
             <h1 className={styles.title}>Meal Logger</h1>
-            <form>
+            <form className={styles.mealItemForm}>
                 <input 
                     type="text" 
                     id="mealItemName" 
@@ -137,39 +137,41 @@ function MealLogger() {
                     </li>
                 ))}
             </ul>
-            <input 
-                type="text" 
-                id="mealName" 
-                name="mealName" 
-                className="form-control" 
-                placeholder="Meal Name" 
-                value={mealName} 
-                onChange={handleChange}
-            />
-            <input 
-                type="date" 
-                id="mealDate" 
-                name="mealDate" 
-                className="form-control" 
-                value={mealDate} 
-                onChange={handleChange}
-            />
-            <input 
-                type="time" 
-                id="mealTime" 
-                name="mealTime" 
-                className="form-control" 
-                value={mealTime} 
-                onChange={handleChange}
-            />
-            <button 
-                id="mealSubmit" 
-                type="submit" 
-                className={`btn btn-danger ${styles.button}`} 
-                onClick={handleSubmit}
-            >
-                Log Meal
-            </button>
+            <form className={styles.mealForm}>
+                <input 
+                    type="text" 
+                    id="mealName" 
+                    name="mealName" 
+                    className="form-control" 
+                    placeholder="Meal Name" 
+                    value={mealName} 
+                    onChange={handleChange}
+                />
+                <input 
+                    type="date" 
+                    id="mealDate" 
+                    name="mealDate" 
+                    className="form-control" 
+                    value={mealDate} 
+                    onChange={handleChange}
+                />
+                <input 
+                    type="time" 
+                    id="mealTime" 
+                    name="mealTime" 
+                    className="form-control" 
+                    value={mealTime} 
+                    onChange={handleChange}
+                />
+                <button 
+                    id="mealSubmit" 
+                    type="submit" 
+                    className={`btn btn-danger ${styles.button}`} 
+                    onClick={handleSubmit}
+                >
+                    Log Meal
+                </button>
+            </form>
         </div>
     );
 }
