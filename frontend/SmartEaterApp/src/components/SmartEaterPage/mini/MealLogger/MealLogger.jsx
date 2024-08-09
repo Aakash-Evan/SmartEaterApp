@@ -48,6 +48,12 @@ function MealLogger() {
         setMealItemAmount('');
     };
 
+    const deleteMealItem = (index) => {
+        const newMealItems = [...mealItems];
+        newMealItems.splice(index, 1);
+        setMealItems(newMealItems);
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const meal = {
@@ -100,8 +106,8 @@ function MealLogger() {
                 >
                     <option value="">Select Unit</option>
                     <option value="oz">oz</option>
-                    <option value="gram">gram</option>
-                    <option value="calorie">calorie</option>
+                    <option value="grams">grams</option>
+                    <option value="calories">calories</option>
                 </select>
                 <input 
                     type="number" 
@@ -121,9 +127,13 @@ function MealLogger() {
                 </button>
             </form>
             <ul className={styles.mealItemsList}>
+                {mealItems.length === 0 && <p>No meal items added yet...</p>}
                 {mealItems.map((mealItem, index) => (
-                    <li key={index}>
-                        {mealItem.name} - {mealItem.description} - {mealItem.amount} {mealItem.unit}
+                    <li className={styles.mealItemContainer} key={index}>
+                        <h1 className={styles.mealItemName}>{mealItem.name}</h1>
+                        <p className={styles.mealItemDescription}>{mealItem.description}</p>
+                        <p className={styles.mealItemAmount}>{mealItem.amount} {mealItem.unit}</p>
+                        <button className={`btn btn-danger ${styles.button}`} onClick={deleteMealItem}>Delete</button>
                     </li>
                 ))}
             </ul>
