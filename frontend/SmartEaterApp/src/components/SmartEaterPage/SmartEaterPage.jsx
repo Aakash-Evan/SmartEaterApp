@@ -4,6 +4,7 @@ import styles from './SmartEaterPage.module.css';
 import Header from './mini/Header/Header';
 import MealList from './mini/MealList/MealList';
 import MealLogger from './mini/MealLogger/MealLogger';
+import MealRecords from './mini/MealRecords/MealRecords';
 
 function SmartEaterPage() {
 
@@ -11,6 +12,7 @@ function SmartEaterPage() {
         <>
             <Header />
             <MealLogger />
+            <MealRecords />
             <MealList />
         </>
     )
