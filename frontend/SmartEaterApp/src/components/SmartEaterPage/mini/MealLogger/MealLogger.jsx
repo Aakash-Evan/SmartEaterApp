@@ -78,100 +78,112 @@ function MealLogger() {
     return (
         <div className={styles.container}>
             <h1 className={styles.title}>Meal Logger</h1>
-            <form className={styles.mealItemForm}>
-                <input 
-                    type="text" 
-                    id="mealItemName" 
-                    name="mealItemName" 
-                    className="form-control" 
-                    placeholder="Meal Item Name" 
-                    value={mealItemName}
-                    onChange={handleChange}
-                />
-                <input 
-                    type="text" 
-                    id="mealItemDescription" 
-                    name="mealItemDescription" 
-                    className="form-control" 
-                    placeholder="Description" 
-                    value={mealItemDescription}
-                    onChange={handleChange}
-                />
-                <select 
-                    id="mealItemUnit" 
-                    name="mealItemUnit" 
-                    className="form-control" 
-                    value={mealItemUnit}
-                    onChange={handleChange}
-                >
-                    <option value="">Select Unit</option>
-                    <option value="oz">oz</option>
-                    <option value="grams">grams</option>
-                    <option value="calories">calories</option>
-                </select>
-                <input 
-                    type="number" 
-                    id="mealItemAmount" 
-                    name="mealItemAmount" 
-                    className="form-control" 
-                    placeholder="Amount" 
-                    value={mealItemAmount}
-                    onChange={handleChange}
-                />
-                <button 
-                    type="button" 
-                    className={`btn btn-primary ${styles.button}`} 
-                    onClick={addMealItem}
-                >
-                    Add Meal Item
-                </button>
-            </form>
-            <ul className={styles.mealItemsList}>
-                {mealItems.length === 0 && <p>No meal items added yet...</p>}
-                {mealItems.map((mealItem, index) => (
-                    <li className={styles.mealItemContainer} key={index}>
-                        <h1 className={styles.mealItemName}>{mealItem.name}</h1>
-                        <p className={styles.mealItemDescription}>{mealItem.description}</p>
-                        <p className={styles.mealItemAmount}>{mealItem.amount} {mealItem.unit}</p>
-                        <button className={`btn btn-danger ${styles.button}`} onClick={deleteMealItem}>Delete</button>
-                    </li>
-                ))}
-            </ul>
-            <form className={styles.mealForm}>
-                <input 
-                    type="text" 
-                    id="mealName" 
-                    name="mealName" 
-                    className="form-control" 
-                    placeholder="Meal Name" 
-                    value={mealName} 
-                    onChange={handleChange}
-                />
-                <input 
-                    type="date" 
-                    id="mealDate" 
-                    name="mealDate" 
-                    className="form-control" 
-                    value={mealDate} 
-                    onChange={handleChange}
-                />
-                <input 
-                    type="time" 
-                    id="mealTime" 
-                    name="mealTime" 
-                    className="form-control" 
-                    value={mealTime} 
-                    onChange={handleChange}
-                />
-                <button 
-                    id="mealSubmit" 
-                    type="submit" 
-                    className={`btn btn-danger ${styles.button}`} 
-                    onClick={handleSubmit}
-                >
-                    Log Meal
-                </button>
-            </form>
+            <div className={styles.content}>
+                <div className={styles.forms}>
+                    <div className={styles.mealItemForm}>
+                        <p className={styles.formTitle}>Enter Meal Item</p>
+                        <form className={styles.mealItemForm}>
+                            <input 
+                                type="text" 
+                                id="mealItemName" 
+                                name="mealItemName" 
+                                className="form-control" 
+                                placeholder="Meal Item Name" 
+                                value={mealItemName}
+                                onChange={handleChange}
+                            />
+                            <input 
+                                type="text" 
+                                id="mealItemDescription" 
+                                name="mealItemDescription" 
+                                className="form-control" 
+                                placeholder="Description" 
+                                value={mealItemDescription}
+                                onChange={handleChange}
+                            />
+                            <select 
+                                id="mealItemUnit" 
+                                name="mealItemUnit" 
+                                className="form-control" 
+                                value={mealItemUnit}
+                                onChange={handleChange}
+                            >
+                                <option value="">Select Unit</option>
+                                <option value="oz">oz</option>
+                                <option value="grams">grams</option>
+                                <option value="calories">calories</option>
+                            </select>
+                            <input 
+                                type="number" 
+                                id="mealItemAmount" 
+                                name="mealItemAmount" 
+                                className="form-control" 
+                                placeholder="Amount" 
+                                value={mealItemAmount}
+                                onChange={handleChange}
+                            />
+                            <button 
+                                type="button" 
+                                className={`btn btn-primary ${styles.button}`} 
+                                onClick={addMealItem}
+                            >
+                                Add Meal Item
+                            </button>
+                        </form>
+                    </div>
+                    <div className={styles.wholeMealForm}>
+                        <p className={styles.formTitle}>Whole Meal</p>
+                        <form className={styles.mealForm}>
+                            <input 
+                                type="text" 
+                                id="mealName" 
+                                name="mealName" 
+                                className="form-control" 
+                                placeholder="Meal Name" 
+                                value={mealName} 
+                                onChange={handleChange}
+                            />
+                            <input 
+                                type="date" 
+                                id="mealDate" 
+                                name="mealDate" 
+                                className="form-control" 
+                                value={mealDate} 
+                                onChange={handleChange}
+                            />
+                            <input 
+                                type="time" 
+                                id="mealTime" 
+                                name="mealTime" 
+                                className="form-control" 
+                                value={mealTime} 
+                                onChange={handleChange}
+                            />
+                            <button 
+                                id="mealSubmit" 
+                                type="submit" 
+                                className={`btn btn-danger ${styles.button}`} 
+                                onClick={handleSubmit}
+                            >
+                                Log Meal
+                            </button>
+                        </form>
+                    </div>  
+                </div>
+                <ul className={styles.mealItemsList}>
+                    {mealItems.length === 0 && <p>No meal items added yet...</p>}
+                    {mealItems.map((mealItem, index) => (
+                        <li className={styles.mealItemContainer} key={index}>
+                            <h1 className={styles.mealItemName}>{mealItem.name}</h1>
+                            <p className={styles.mealItemDescription}>{mealItem.description}</p>
+                            <p className={styles.mealItemAmount}>{mealItem.amount} {mealItem.unit}</p>
+                            <button className={`btn btn-danger ${styles.button}`} onClick={deleteMealItem}>Delete</button>
+                        </li>
+                    ))}
+                </ul>
+                
+            </div>
+            
         </div>
     );
 }
