@@ -1,3 +1,5 @@
+@import './vars.css';
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -9,5 +11,5 @@
   }
 
   body {
-    background-color: rgb(245, 240, 173);
+    background-color: var(--color-bg);
 }

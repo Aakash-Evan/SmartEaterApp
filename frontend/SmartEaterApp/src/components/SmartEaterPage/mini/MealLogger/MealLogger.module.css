@@ -1,3 +1,5 @@
+@import '../../../../vars.css';
+
 .container {
     display: flex;
     flex-direction: column;
@@ -23,35 +25,48 @@
     flex-wrap: wrap;
     align-items: center;
     width: 100%;
+    height: 500px;
     list-style: none;
-
     margin-top: 30px;
-
     padding: 30px 90px;
-
     gap: 30px;
+    border: solid;
+    border-radius: 20px;
+    overflow-y: scroll;
+}
 
-    background-color: rgba(141, 133, 133, 0.6);
+.mealItemsList::-webkit-scrollbar {
+    display: none;
 }
 
 .mealItemContainer {
+    background-color: var(--color-primary);
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 200px;
+    width: auto;
+    min-width: 300px;
+    max-width: 500px;
     height: auto;
     border: solid;
     border-radius: 20px;
-    padding-bottom: 10px;
+    padding: 10px 20px;
+    overflow: hidden;
 }
 
 .mealItemName {
-    margin-top: 15px;
     font-size: 20px;
     font-weight: 700;
     letter-spacing: 1.75px;
     text-transform: uppercase;
+    text-align: center;
+}
+
+.mealItemDescription {
+    font-size: 15px;
+    text-wrap: wrap;
     text-align: center;
 }
 
