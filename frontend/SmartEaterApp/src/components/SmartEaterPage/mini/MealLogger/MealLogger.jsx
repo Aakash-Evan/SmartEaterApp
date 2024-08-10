@@ -2,8 +2,6 @@ import { useState } from 'react';
 import Axios from 'axios';
 import styles from './MealLogger.module.css';
 
-
-
 function MealLogger() {
     const [mealItems, setMealItems] = useState([]);
     const [mealName, setMealName] = useState('');
@@ -49,10 +47,9 @@ function MealLogger() {
     };
 
     const deleteMealItem = (index) => {
-        const newMealItems = [...mealItems];
-        newMealItems.splice(index, 1);
+        const newMealItems = mealItems.filter((item, i) => i !== index);
         setMealItems(newMealItems);
-    }
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -177,7 +174,7 @@ function MealLogger() {
                             <h1 className={styles.mealItemName}>{mealItem.name}</h1>
                             <p className={styles.mealItemDescription}>{mealItem.description}</p>
                             <p className={styles.mealItemAmount}>{mealItem.amount} {mealItem.unit}</p>
-                            <button className={`btn btn-danger ${styles.button}`} onClick={deleteMealItem}>Delete</button>
+                            <button className={`btn btn-danger ${styles.button}`} onClick={() => deleteMealItem(index)}>Delete</button>
                         </li>
                     ))}
                 </ul>
