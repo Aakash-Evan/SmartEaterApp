@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Axios from 'axios';
 import styles from './MealLogger.module.css';
 
+// TODO: Add edit meal item button and functionality
+
 function MealLogger() {
     const [mealItems, setMealItems] = useState([]);
     const [mealName, setMealName] = useState('');
