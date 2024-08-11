@@ -16,6 +16,7 @@ function SmartEaterPage() {
                 <Route path="/meal-logger" element={<MealLogger />} />
                 <Route path="/meal-list" element={<MealList />} />
                 <Route path="/meal-records" element={<MealRecords />} />
+                <Route path="*" element={<Navigate to="/smart-eater" />} />
             </Routes>
         </div>
     );
