@@ -35,6 +35,10 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
+    background-color: var(--color-primary);
+    padding: 20px 30px;
+    border: solid;
+    border-radius: 20px;
 }
 
 .mealItemsList {
