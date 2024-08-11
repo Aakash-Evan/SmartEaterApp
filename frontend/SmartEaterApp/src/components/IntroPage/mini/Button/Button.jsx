@@ -11,10 +11,8 @@ function Button() {
                 <p className={styles.description}>
                     Explore our SmartEater website! The button below will take you to our WebApp, where you can enter your meals, track your diet, and receive personalized meal recommendations to help you maintain a balanced and healthy lifestyle.
                 </p>
-                <SignInButton mode="modal">
-                    <button type="button" className={styles.button}>
+                <SignInButton mode="modal" forceRedirectUrl={'/smart-eater'} className={styles.button}>
                         Sign up / Log in
-                    </button>
                 </SignInButton>
             </div>
         </section>

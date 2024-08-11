@@ -9,38 +9,27 @@ import SmartEaterPage from './components/SmartEaterPage/SmartEaterPage';
 function App() {
   return (
     <Router>
-      <div>
-        <SignedIn>
-          <SmartEaterPage />
-        </SignedIn>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <SignedOut>
-                <IntroPage />
-              </SignedOut>
-            }
-          />
-          
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <SignedOut>
+              <IntroPage />
+            </SignedOut>
+          }
+        />
+        <Route
+          path="/smart-eater/*"
+          element={
+            <SignedIn>
+              <SmartEaterPage />
+            </SignedIn>
+          }
+        />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
     </Router>
   );
 }
 
 export default App;
-
-/*
-<Route
-            path="/smart-eater"
-            element={
-              <SignedIn>
-                <SmartEaterPage />
-              </SignedIn>
-            }
-          />
-
-This went after the first <Route> in <Routes>
-*/

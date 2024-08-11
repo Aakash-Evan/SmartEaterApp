@@ -18,4 +18,3 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </ClerkProvider>
   </React.StrictMode>,
 )
-// maybe get rid of afterSignOutUrl="/", or look into it
