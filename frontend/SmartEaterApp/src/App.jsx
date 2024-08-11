@@ -31,16 +31,3 @@ function App() {
 }
 
 export default App;
-
-/*
-<Route
-            path="/smart-eater"
-            element={
-              <SignedIn>
-                <SmartEaterPage />
-              </SignedIn>
-            }
-          />
-
-This went after the first <Route> in <Routes>
-*/
