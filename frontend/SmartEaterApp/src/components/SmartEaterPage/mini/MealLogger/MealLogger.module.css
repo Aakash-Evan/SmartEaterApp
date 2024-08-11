@@ -96,7 +96,7 @@
 }
 
 .button {
-    width: 80%;
+    width: 100%;
 }
 
 .mealItemForm {
@@ -131,4 +131,13 @@
     letter-spacing: 1.75px;
     text-transform: uppercase;
     text-align: center;
+}
+
+.noMealItems {
+    font-size: 20px;
+    font-weight: 670;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--color-primary)
 }

@@ -168,7 +168,7 @@ function MealLogger() {
                     </div>  
                 </div>
                 <ul className={styles.mealItemsList}>
-                    {mealItems.length === 0 && <p>No meal items added yet...</p>}
+                    {mealItems.length === 0 && <p className={styles.noMealItems}>No meal items added yet...</p>}
                     {mealItems.map((mealItem, index) => (
                         <li className={styles.mealItemContainer} key={index}>
                             <h1 className={styles.mealItemName}>{mealItem.name}</h1>
