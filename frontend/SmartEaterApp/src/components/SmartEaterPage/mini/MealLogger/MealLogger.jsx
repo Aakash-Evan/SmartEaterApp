@@ -41,7 +41,6 @@ function MealLogger() {
             amount: mealItemAmount,
         };
         setMealItems([...mealItems, newMealItem]);
-        // Clear input fields after adding the meal item
         setMealItemName('');
         setMealItemDescription('');
         setMealItemUnit('');
@@ -65,7 +64,7 @@ function MealLogger() {
         try {
             const response = await Axios.post('http://localhost:5001/logMeal', { meal });
             console.log(response.data.message);
-            setMealItems([]); // Clear the meal items after submission
+            setMealItems([]); // Clears the meal items after submission
             setMealName('');
             setMealDate('');
             setMealTime('');

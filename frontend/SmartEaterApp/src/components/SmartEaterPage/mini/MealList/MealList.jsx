@@ -28,10 +28,10 @@ function MealList() {
                 <ul className={styles.mealList}>
                 {meals.map((meal, index) => (
                     <li key={index} className={styles.mealListItem}>
-                        <div>
-                            <h3>{meal.name}</h3>
-                            <p>{meal.date} at {meal.time}</p>
-                            <p>Number of items: {meal.numMealItems}</p> {/* Updated key */}
+                        <div className={styles.mealInfo}>
+                            <h3 className={styles.mealName}>{meal.name}</h3>
+                            <p className={styles.mealDate}>{meal.date} at {meal.time}</p>
+                            <p className={styles.mealNumItems}>Number of items: {meal.numMealItems}</p> {/* Updated key */}
                         </div>
                         {meal.mealItems.map((mealItem, itemIndex) => ( // Updated key
                             <div key={itemIndex} className={styles.mealItem}>
