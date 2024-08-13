@@ -39,6 +39,7 @@
     padding: 20px 30px;
     border: solid;
     border-radius: 20px;
+    gap: 10px;
 }
 
 .mealItemsList {
@@ -65,7 +66,6 @@
 
 .mealItemContainer {
     background-color: var(--color-primary);
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -103,20 +103,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
     gap: 2px;
 }
 
 .mealForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-
-}
-
-.wholeMealForm {
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -78,7 +78,7 @@ function MealLogger() {
             <h1 className={styles.title}>Meal Logger</h1>
             <div className={styles.content}>
                 <div className={styles.forms}>
-                    <div className={styles.mealItemForm}>
+                    <div className={styles.mealItemFormContainer}>
                         <p className={styles.formTitle}>Enter Meal Item</p>
                         <form className={styles.mealItemForm}>
                             <input 
@@ -129,7 +129,7 @@ function MealLogger() {
                             </button>
                         </form>
                     </div>
-                    <div className={styles.wholeMealForm}>
+                    <div className={styles.wholeMealFormContainer}>
                         <p className={styles.formTitle}>Whole Meal</p>
                         <form className={styles.mealForm}>
                             <input 
