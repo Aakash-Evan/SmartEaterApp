@@ -1,14 +1,20 @@
-import styles from './MealRecords.module.css';
+import styles from './MealCalendar.module.css';
 import { format } from 'date-fns';
+
+const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 function MealCalendar() {
     const currentDate = new Date();
     return (
-        <div className={`mx-auto p-4 ${styles.container}`}>
+        <div className={styles.container}>
             <div>
-                <h2 className={`text-center ${styles.title}`}>{format(currentDate, "MMMM yyyy")}</h2>
+                <h2 className={styles.title}>{format(currentDate, "MMMM yyyy")}</h2>
             </div>
-            
+            <div className={styles.grid}>
+                {WEEKDAYS.map((day) => {
+                    return <div key={day} className={styles.day}>{day}</div>;
+                })}
+            </div>
         </div>
     );
 }
