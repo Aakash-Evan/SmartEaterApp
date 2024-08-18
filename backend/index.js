@@ -17,6 +17,7 @@ app.use(express.json());
 
 // Define a meal schema
 const mealSchema = new mongoose.Schema({
+    user: String,
     name: String,
     date: String,
     time: String,
@@ -48,8 +49,9 @@ app.get('/getData', async (req, res) => {
 // POST endpoint to log a new meal
 app.post('/logMeal', async (req, res) => {
     try {
-        const { name: mealName, date: mealDate, time: mealTime, items: mealItems } = req.body.meal;
+        const { userEmail, name: mealName, date: mealDate, time: mealTime, items: mealItems } = req.body.meal;
         const meal = new Meal({ 
+            user: userEmail,
             name: mealName,
             date: mealDate,
             time: mealTime,

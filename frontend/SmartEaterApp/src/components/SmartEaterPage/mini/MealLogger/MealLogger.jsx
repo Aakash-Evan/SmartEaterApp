@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { useUser } from '@clerk/clerk-react';
 import styles from './MealLogger.module.css';
@@ -15,6 +15,10 @@ function MealLogger() {
     const [mealItemDescription, setMealItemDescription] = useState('');
     const [mealItemUnit, setMealItemUnit] = useState('');
     const [mealItemAmount, setMealItemAmount] = useState('');
+
+    useEffect(() => {
+        console.log('User object:', user);
+    }, [user]);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
