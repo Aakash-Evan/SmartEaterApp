@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import Axios from 'axios';
+import { useUser } from '@clerk/clerk-react';
 import styles from './MealLogger.module.css';
 
 // TODO: Add edit meal item button and functionality
 
 function MealLogger() {
+    const { user } = useUser();
     const [mealItems, setMealItems] = useState([]);
     const [mealName, setMealName] = useState('');
     const [mealDate, setMealDate] = useState('');
@@ -55,6 +57,7 @@ function MealLogger() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const meal = {
+            userEmail: user.primaryEmailAddress.emailAddress,
             name: mealName,
             date: mealDate,
             time: mealTime,

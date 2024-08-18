@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 dotenv.config();
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('Connected to MongoDB'))
     .catch((error) => console.error('MongoDB connection error:', error));
 
@@ -31,7 +31,6 @@ const mealSchema = new mongoose.Schema({
     ]
 });
 
-
 // Create a model based on the schema
 const Meal = mongoose.model('Meal', mealSchema);
 
@@ -49,18 +48,14 @@ app.get('/getData', async (req, res) => {
 // POST endpoint to log a new meal
 app.post('/logMeal', async (req, res) => {
     try {
-        const mealName = req.body.meal.name;
-        const mealDate = req.body.meal.date;
-        const mealTime = req.body.meal.time;
-        const mealItems = req.body.meal.items;
-        console.log(mealName);
+        const { name: mealName, date: mealDate, time: mealTime, items: mealItems } = req.body.meal;
         const meal = new Meal({ 
             name: mealName,
             date: mealDate,
             time: mealTime,
             numMealItems: mealItems.length,
             mealItems: mealItems
-         });
+        });
         await meal.save();
         res.status(200).send({ message: 'Meal logged successfully' });
         console.log('Meal logged successfully');
