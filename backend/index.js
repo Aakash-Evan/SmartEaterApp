@@ -38,7 +38,8 @@ const Meal = mongoose.model('Meal', mealSchema);
 // GET endpoint to retrieve meals
 app.get('/getData', async (req, res) => {
     try {
-        const meals = await Meal.find();
+        const { userEmail } = req.query;
+        const meals = await Meal.find({ user: userEmail });
         res.json(meals);
     } catch (error) {
         console.error('Error retrieving meals:', error);

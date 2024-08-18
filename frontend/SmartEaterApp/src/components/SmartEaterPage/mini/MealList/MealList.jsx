@@ -1,30 +1,34 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Axios from 'axios';
 import styles from './MealList.module.css';
-import { useCallback } from 'react';
+import { useUser } from '@clerk/clerk-react';
 
 function MealList() {
+    const { user } = useUser();
     const [meals, setMeals] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const mealsPerPage = 2;
 
     const getData = useCallback(async () => {
-        try {
-            const response = await Axios.get('http://localhost:5001/getData');
-            const mealsData = response.data;
-            const chunkedMeals = chunkArray(mealsData, mealsPerPage);
-            setMeals(chunkedMeals);
-        } catch (error) {
-            console.error('There was an error fetching the data:', error);
+        if (user) {
+            try {
+                const response = await Axios.get('http://localhost:5001/getData', {
+                    params: { userEmail: user.primaryEmailAddress.emailAddress }
+                });
+                const mealsData = response.data;
+                const chunkedMeals = chunkArray(mealsData, mealsPerPage);
+                setMeals(chunkedMeals);
+            } catch (error) {
+                console.error('There was an error fetching the data:', error);
+            }
         }
-    }, []);
+    }, [user]);
 
     useEffect(() => {
         getData();
     }, [getData]);
 
-    // Helper function to chunk an array into smaller arrays
     const chunkArray = (array, chunkSize) => {
         const result = [];
         for (let i = 0; i < array.length; i += chunkSize) {
@@ -48,21 +52,21 @@ function MealList() {
                 Generate Next Meal Options
             </button>
             <div className={styles.mealNavigation}>
-                    <button
-                        className={`btn btn-secondary ${styles.pageButton}`}
-                        onClick={handlePrevPage}
-                        disabled={currentPage === 0}
-                    >
-                        Previous
-                    </button>
-                    <button
-                        className={`btn btn-secondary ${styles.pageButton}`}
-                        onClick={handleNextPage}
-                        disabled={currentPage >= meals.length - 1}
-                    >
-                        Next
-                    </button>
-                </div>
+                <button
+                    className={`btn btn-secondary ${styles.pageButton}`}
+                    onClick={handlePrevPage}
+                    disabled={currentPage === 0}
+                >
+                    Previous
+                </button>
+                <button
+                    className={`btn btn-secondary ${styles.pageButton}`}
+                    onClick={handleNextPage}
+                    disabled={currentPage >= meals.length - 1}
+                >
+                    Next
+                </button>
+            </div>
             <div className={styles.mealListContainer}>
                 <ul className={styles.mealList}>
                     {meals[currentPage]?.map((meal, index) => (
