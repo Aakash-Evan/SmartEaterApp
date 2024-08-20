@@ -1,5 +1,5 @@
 import styles from './MealCalendar.module.css';
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, getDay } from 'date-fns';
+import { format, startOfMonth, endOfMonth, eachDayOfInterval, getDay, isToday } from 'date-fns';
 
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -9,6 +9,7 @@ function MealCalendar() {
     const lastDayOfMonth = endOfMonth(currentDate);
     const daysInMonth = eachDayOfInterval({ start: firstDayOfMonth, end: lastDayOfMonth });
     const startingDayIndex = getDay(firstDayOfMonth); // to help us align the days of month because Sunday is not always the first day of the week
+    
 
     return (
         <div className={styles.container}>
@@ -24,7 +25,8 @@ function MealCalendar() {
                     return <div key={`empty-${index}`} className={styles.days}/>;
                 })}
                 {daysInMonth.map((day, index) => {
-                    return <div key={index} className={styles.days}>{format(day, "d")}</div>;
+                    const dayClasses = `${styles.days} ${isToday(day) ? styles.today : ''}`;
+                    return <div key={index} className={dayClasses}>{format(day, "d")}</div>;
                 })}
             </div>
         </div>
