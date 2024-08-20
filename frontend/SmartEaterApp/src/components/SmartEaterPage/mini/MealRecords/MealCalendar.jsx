@@ -20,7 +20,7 @@ function MealCalendar() {
                 })}
                 {/* When adding feature to change months, using inde as key won't be good */}
                 {daysInMonth.map((day, index) => {
-                    return <div key={index}>{format(day, "d")}</div>;
+                    return <div key={index} className={styles.days}>{format(day, "d")}</div>;
                 })}
             </div>
         </div>
