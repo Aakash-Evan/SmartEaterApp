@@ -9,8 +9,24 @@
     position: relative;
 }
 
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 400px;
+}
+
 .title {
     text-align: center;
+    flex-grow: 1;
+}
+
+.navButton {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
 }
 
 .grid {
