@@ -126,24 +126,33 @@ function MealCalendar() {
             </div>
 
             {showModal && (
-                <div className={styles.modal}>
-                    <div className={styles.modalContent}>
-                        <button className={styles.closeButton} onClick={closeModal}>X</button>
-                        <h3>Meals for {selectedDay}</h3>
-                        <ul>
-                            {mealList.map((meal) => (
-                                <li key={meal._id}>
-                                    <div onClick={() => handleMealClick(meal)}>
-                                        {meal.name} - {meal.time}
-                                    </div>
-                                    <button onClick={() => handleDeleteMeal(meal._id)}>Delete</button>
-                                    {/* Optionally, add an "Edit" button to show the edit form */}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
-            )}
+    <div className={styles.modal}>
+        <div className={styles.modalContent}>
+            <button className={styles.closeButton} onClick={closeModal}>X</button>
+            <h3>Meals for {selectedDay}</h3>
+            <ul className={styles.mealList}>
+                {mealList.map((meal) => (
+                    <li key={meal._id}>
+                        <div onClick={() => handleMealClick(meal)}>
+                            {meal.name} - {meal.time}
+                            <p>Number of meal items: {meal.numMealItems}</p>
+                            <ul>
+                                {meal.mealItems.map((item, index) => (
+                                    <li key={index}>
+                                        <strong>{item.name}</strong>: {item.amount} {item.unit} - {item.description}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        {/* Optionally, add an "Edit" button to show the edit form */}
+                        <button onClick={() => handleDeleteMeal(meal._id)}>Delete</button>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </div>
+)}
+
         </div>
     );
 }
