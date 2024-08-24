@@ -69,11 +69,13 @@ app.post('/logMeal', async (req, res) => {
     }
 });
 
-// Update a meal
+// POST endpoint to update a meal
 app.post('/updateMeal', async (req, res) => {
     try {
         const { _id, name, date, time, mealItems } = req.body;
-        await Meal.findByIdAndUpdate(_id, { name, date, time, mealItems });
+        const numMealItems = mealItems.length;  // Recalculate numMealItems
+
+        await Meal.findByIdAndUpdate(_id, { name, date, time, numMealItems, mealItems });
         res.status(200).send({ message: 'Meal updated successfully' });
     } catch (error) {
         console.error('Error updating meal:', error);

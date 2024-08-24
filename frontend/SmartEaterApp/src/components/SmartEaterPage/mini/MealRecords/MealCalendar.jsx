@@ -14,6 +14,12 @@ function MealCalendar() {
     const [selectedMeal, setSelectedMeal] = useState(null);
     const [mealList, setMealList] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+    const [mealForm, setMealForm] = useState({
+        name: '',
+        time: '',
+        mealItems: [{ name: '', description: '', unit: '', amount: 0 }],
+    });
 
     const handlePreviousMonth = () => {
         setCurrentDate(prevDate => subMonths(prevDate, 1));
@@ -31,7 +37,6 @@ function MealCalendar() {
                 });
                 const mealsData = response.data;
 
-                // Process mealsData to count meals per day and group them by date
                 const mealsCount = mealsData.reduce((acc, meal) => {
                     const date = meal.date;
                     acc[date] = acc[date] || [];
@@ -64,15 +69,26 @@ function MealCalendar() {
 
     const handleMealClick = (meal) => {
         setSelectedMeal(meal);
-        // Here you can open another modal or use the existing one to show the edit form
+        setMealForm({
+            name: meal.name,
+            time: meal.time,
+            mealItems: meal.mealItems,
+        });
+        setIsEditing(true);
     };
 
-    const handleEditMeal = async (updatedMeal) => {
+    const handleEditMeal = async () => {
         try {
+            const updatedMeal = {
+                ...selectedMeal,
+                name: mealForm.name,
+                time: mealForm.time,
+                mealItems: mealForm.mealItems,
+            };
             await Axios.post('http://localhost:5001/updateMeal', updatedMeal);
-            // Update the mealList and mealsByDay with the edited meal
-            getData(); // Refetch data after updating
-            setSelectedMeal(null); // Close the edit form
+            getData();
+            setIsEditing(false);
+            setSelectedMeal(null);
         } catch (error) {
             console.error('There was an error updating the meal:', error);
         }
@@ -81,9 +97,8 @@ function MealCalendar() {
     const handleDeleteMeal = async (mealId) => {
         try {
             await Axios.delete(`http://localhost:5001/deleteMeal/${mealId}`);
-            // Update the mealList and mealsByDay after deleting
-            getData(); // Refetch data after deletion
-            setSelectedMeal(null); // Close the edit form if open
+            getData();
+            setSelectedMeal(null);
         } catch (error) {
             console.error('There was an error deleting the meal:', error);
         }
@@ -92,6 +107,27 @@ function MealCalendar() {
     const closeModal = () => {
         setShowModal(false);
         setSelectedMeal(null);
+        setIsEditing(false);
+    };
+
+    const handleFormChange = (index, event) => {
+        const { name, value } = event.target;
+        const updatedMealItems = [...mealForm.mealItems];
+        updatedMealItems[index][name] = value;
+        setMealForm({ ...mealForm, mealItems: updatedMealItems });
+    };
+
+    const addItem = () => {
+        setMealForm({
+            ...mealForm,
+            mealItems: [...mealForm.mealItems, { name: '', description: '', unit: '', amount: 0 }]
+        });
+    };
+
+    const removeItem = (index) => {
+        const updatedMealItems = [...mealForm.mealItems];
+        updatedMealItems.splice(index, 1);
+        setMealForm({ ...mealForm, mealItems: updatedMealItems });
     };
 
     return (
@@ -128,31 +164,91 @@ function MealCalendar() {
             {showModal && (
     <div className={styles.modal}>
         <div className={styles.modalContent}>
-            <button className={styles.closeButton} onClick={closeModal}>X</button>
-            <h3>Meals for {selectedDay}</h3>
-            <ul className={styles.mealList}>
-                {mealList.map((meal) => (
-                    <li key={meal._id}>
-                        <div onClick={() => handleMealClick(meal)}>
-                            {meal.name} - {meal.time}
-                            <p>Number of meal items: {meal.numMealItems}</p>
-                            <ul>
-                                {meal.mealItems.map((item, index) => (
-                                    <li key={index}>
-                                        <strong>{item.name}</strong>: {item.amount} {item.unit} - {item.description}
-                                    </li>
-                                ))}
-                            </ul>
+            <div className={styles.modalHeader}>
+                <h3>{isEditing ? `Edit Meal for ${selectedDay}` : `Meals for ${selectedDay}`}</h3>
+                <button className={styles.closeButton} onClick={closeModal}>X</button>
+            </div>
+            {isEditing ? (
+                <div>
+                    <form>
+                        <div>
+                            <label>Meal Name:</label>
+                            <input
+                                type="text"
+                                value={mealForm.name}
+                                onChange={(e) => setMealForm({ ...mealForm, name: e.target.value })}
+                            />
                         </div>
-                        {/* Optionally, add an "Edit" button to show the edit form */}
-                        <button onClick={() => handleDeleteMeal(meal._id)}>Delete</button>
-                    </li>
-                ))}
-            </ul>
+                        <div>
+                            <label>Meal Time:</label>
+                            <input
+                                type="text"
+                                value={mealForm.time}
+                                onChange={(e) => setMealForm({ ...mealForm, time: e.target.value })}
+                            />
+                        </div>
+                        {mealForm.mealItems.map((item, index) => (
+                            <div key={index} className={styles.mealItem}>
+                                <label>Item Name:</label>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    value={item.name}
+                                    onChange={(e) => handleFormChange(index, e)}
+                                />
+                                <label>Amount:</label>
+                                <input
+                                    type="number"
+                                    name="amount"
+                                    value={item.amount}
+                                    onChange={(e) => handleFormChange(index, e)}
+                                />
+                                <label>Unit:</label>
+                                <input
+                                    type="text"
+                                    name="unit"
+                                    value={item.unit}
+                                    onChange={(e) => handleFormChange(index, e)}
+                                />
+                                <label>Description:</label>
+                                <input
+                                    type="text"
+                                    name="description"
+                                    value={item.description}
+                                    onChange={(e) => handleFormChange(index, e)}
+                                />
+                                <button type="button" onClick={() => removeItem(index)}>Remove</button>
+                            </div>
+                        ))}
+                        <button type="button" onClick={addItem}>Add Item</button>
+                    </form>
+                    <button onClick={handleEditMeal}>Save</button>
+                </div>
+            ) : (
+                <div>
+                    <ul className={styles.mealList}>
+                        {mealList.map((meal) => (
+                            <li key={meal._id}>
+                                <div onClick={() => handleMealClick(meal)}>
+                                    {meal.name} - {meal.time}
+                                    <p>Number of meal items: {meal.numMealItems}</p>
+                                    <ul>
+                                        {meal.mealItems.map((item, index) => (
+                                            <li key={index}>
+                                                <strong>{item.name}</strong>: {item.amount} {item.unit} - {item.description}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <button onClick={() => handleDeleteMeal(meal._id)}>Delete</button>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
         </div>
     </div>
 )}
-
         </div>
     );
 }
