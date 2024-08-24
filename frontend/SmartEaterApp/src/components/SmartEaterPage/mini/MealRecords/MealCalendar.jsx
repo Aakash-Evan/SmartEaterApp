@@ -6,6 +6,12 @@ import Axios from 'axios';
 
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+
+// TODO: When a day is clicked, show the meal list for that day
+// TODO: When a meal is clicked, show the edit meal form
+// TODO: Add edit meal item button and functionality
+// TODO: Add delete meal item button and functionality
+
 function MealCalendar() {
     const { user } = useUser();
     const [currentDate, setCurrentDate] = useState(new Date());

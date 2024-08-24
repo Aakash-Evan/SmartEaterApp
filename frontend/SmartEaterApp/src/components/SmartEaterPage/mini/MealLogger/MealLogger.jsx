@@ -4,6 +4,7 @@ import { useUser } from '@clerk/clerk-react';
 import styles from './MealLogger.module.css';
 
 // TODO: Add edit meal item button and functionality
+// TODO: Make date and time mandatory
 
 function MealLogger() {
     const { user } = useUser();

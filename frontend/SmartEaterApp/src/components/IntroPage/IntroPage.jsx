@@ -7,6 +7,8 @@ import Footer from './mini/Footer/Footer';
 
 import styles from './IntroPage.module.css';
 
+// TODO: Make the links in the header go to the right spot instead
+// of a little too far down
 
 function IntroPage() {
     return (
