@@ -69,4 +69,29 @@ app.post('/logMeal', async (req, res) => {
     }
 });
 
+// Update a meal
+app.post('/updateMeal', async (req, res) => {
+    try {
+        const { _id, name, date, time, mealItems } = req.body;
+        await Meal.findByIdAndUpdate(_id, { name, date, time, mealItems });
+        res.status(200).send({ message: 'Meal updated successfully' });
+    } catch (error) {
+        console.error('Error updating meal:', error);
+        res.status(500).send('Error updating meal');
+    }
+});
+
+// Delete a meal
+app.delete('/deleteMeal/:id', async (req, res) => {
+    try {
+        const mealId = req.params.id;
+        await Meal.findByIdAndDelete(mealId);
+        res.status(200).send({ message: 'Meal deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting meal:', error);
+        res.status(500).send('Error deleting meal');
+    }
+});
+
+
 app.listen(5001, () => console.log('Server running on port 5001'));

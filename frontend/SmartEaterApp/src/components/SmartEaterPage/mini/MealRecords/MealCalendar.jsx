@@ -6,16 +6,14 @@ import Axios from 'axios';
 
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-
-// TODO: When a day is clicked, show the meal list for that day
-// TODO: When a meal is clicked, show the edit meal form
-// TODO: Add edit meal item button and functionality
-// TODO: Add delete meal item button and functionality
-
 function MealCalendar() {
     const { user } = useUser();
     const [currentDate, setCurrentDate] = useState(new Date());
     const [mealsByDay, setMealsByDay] = useState({});
+    const [selectedDay, setSelectedDay] = useState(null);
+    const [selectedMeal, setSelectedMeal] = useState(null);
+    const [mealList, setMealList] = useState([]);
+    const [showModal, setShowModal] = useState(false);
 
     const handlePreviousMonth = () => {
         setCurrentDate(prevDate => subMonths(prevDate, 1));
@@ -33,10 +31,11 @@ function MealCalendar() {
                 });
                 const mealsData = response.data;
 
-                // Process mealsData to count meals per day
+                // Process mealsData to count meals per day and group them by date
                 const mealsCount = mealsData.reduce((acc, meal) => {
                     const date = meal.date;
-                    acc[date] = (acc[date] || 0) + 1;
+                    acc[date] = acc[date] || [];
+                    acc[date].push(meal);
                     return acc;
                 }, {});
 
@@ -56,6 +55,45 @@ function MealCalendar() {
     const daysInMonth = eachDayOfInterval({ start: firstDayOfMonth, end: lastDayOfMonth });
     const startingDayIndex = getDay(firstDayOfMonth);
 
+    const handleDayClick = (day) => {
+        const dayString = format(day, "yyyy-MM-dd");
+        setSelectedDay(dayString);
+        setMealList(mealsByDay[dayString] || []);
+        setShowModal(true);
+    };
+
+    const handleMealClick = (meal) => {
+        setSelectedMeal(meal);
+        // Here you can open another modal or use the existing one to show the edit form
+    };
+
+    const handleEditMeal = async (updatedMeal) => {
+        try {
+            await Axios.post('http://localhost:5001/updateMeal', updatedMeal);
+            // Update the mealList and mealsByDay with the edited meal
+            getData(); // Refetch data after updating
+            setSelectedMeal(null); // Close the edit form
+        } catch (error) {
+            console.error('There was an error updating the meal:', error);
+        }
+    };
+
+    const handleDeleteMeal = async (mealId) => {
+        try {
+            await Axios.delete(`http://localhost:5001/deleteMeal/${mealId}`);
+            // Update the mealList and mealsByDay after deleting
+            getData(); // Refetch data after deletion
+            setSelectedMeal(null); // Close the edit form if open
+        } catch (error) {
+            console.error('There was an error deleting the meal:', error);
+        }
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+        setSelectedMeal(null);
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.header}>
@@ -72,16 +110,40 @@ function MealCalendar() {
                 ))}
                 {daysInMonth.map((day, index) => {
                     const dayString = format(day, "yyyy-MM-dd");
-                    const mealsCount = mealsByDay[dayString] || 0;
+                    const mealsCount = (mealsByDay[dayString] || []).length;
                     const dayClasses = `${styles.days} ${isToday(day) ? styles.today : ''}`;
                     return (
-                        <div key={index} className={dayClasses}>
+                        <div
+                            key={index}
+                            className={dayClasses}
+                            onClick={() => handleDayClick(day)}
+                        >
                             {format(day, "d")}
                             {mealsCount > 0 && <span className={styles.mealCount}> ({mealsCount})</span>}
                         </div>
                     );
                 })}
             </div>
+
+            {showModal && (
+                <div className={styles.modal}>
+                    <div className={styles.modalContent}>
+                        <button className={styles.closeButton} onClick={closeModal}>X</button>
+                        <h3>Meals for {selectedDay}</h3>
+                        <ul>
+                            {mealList.map((meal) => (
+                                <li key={meal._id}>
+                                    <div onClick={() => handleMealClick(meal)}>
+                                        {meal.name} - {meal.time}
+                                    </div>
+                                    <button onClick={() => handleDeleteMeal(meal._id)}>Delete</button>
+                                    {/* Optionally, add an "Edit" button to show the edit form */}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
