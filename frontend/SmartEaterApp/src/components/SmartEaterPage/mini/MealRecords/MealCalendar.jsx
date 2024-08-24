@@ -115,7 +115,7 @@ function MealCalendar() {
         const updatedMealItems = [...mealForm.mealItems];
         updatedMealItems[index][name] = value;
         setMealForm({ ...mealForm, mealItems: updatedMealItems });
-    };
+    };    
 
     const addItem = () => {
         setMealForm({
@@ -204,12 +204,16 @@ function MealCalendar() {
                                     onChange={(e) => handleFormChange(index, e)}
                                 />
                                 <label>Unit:</label>
-                                <input
-                                    type="text"
+                                <select 
                                     name="unit"
                                     value={item.unit}
                                     onChange={(e) => handleFormChange(index, e)}
-                                />
+                                >
+                                    <option value="">Select Unit</option>
+                                    <option value="oz">oz</option>
+                                    <option value="grams">grams</option>
+                                    <option value="calories">calories</option>
+                                </select>
                                 <label>Description:</label>
                                 <input
                                     type="text"
