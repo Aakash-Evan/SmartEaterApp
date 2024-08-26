@@ -7,10 +7,14 @@
 .header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    width: 400px;
+    padding: 20px;
 }
 
 .title {
     margin: 0 15px;
+    text-align: center;
 }
 
 .grid {
@@ -18,6 +22,7 @@
     grid-template-columns: repeat(7, 1fr);
     gap: 10px;
     margin-top: 20px;
+    width: 470px;
 }
 
 .day, .days {
@@ -26,9 +31,14 @@
 }
 
 .days {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     background-color: #f0f0f0;
     border-radius: 5px;
     cursor: pointer;
+    height: 60px;
 }
 
 .today {

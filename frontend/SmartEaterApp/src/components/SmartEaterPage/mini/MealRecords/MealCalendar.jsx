@@ -6,6 +6,8 @@ import Axios from 'axios';
 
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+// TODO: Add a "go to current month button" that takes you to the current month
+
 function MealCalendar() {
     const { user } = useUser();
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -134,16 +136,18 @@ function MealCalendar() {
         <div className={styles.container}>
             <div className={styles.header}>
                 <button onClick={handlePreviousMonth} className={styles.navButton}>{"<"}</button>
-                <h2 className={styles.title}>{format(currentDate, "MMMM yyyy")}</h2>
+                <h2 className={styles.title}>{format(currentDate, "MMM yyyy")}</h2>
                 <button onClick={handleNextMonth} className={styles.navButton}>{">"}</button>
             </div>
             <div className={styles.grid}>
                 {WEEKDAYS.map((day) => (
                     <div key={day} className={styles.day}>{day}</div>
                 ))}
+                {/* Add empty days if needed */}
                 {Array.from({ length: startingDayIndex }).map((_, index) => (
                     <div key={`empty-${index}`} className={styles.days} />
                 ))}
+                {/* Render the actual days of the month */}
                 {daysInMonth.map((day, index) => {
                     const dayString = format(day, "yyyy-MM-dd");
                     const mealsCount = (mealsByDay[dayString] || []).length;
