@@ -134,9 +134,10 @@ function MealCalendar() {
 
     return (
         <div className={styles.container}>
+            <h1 className={styles.title}>Meal Records</h1>
             <div className={styles.header}>
                 <button onClick={handlePreviousMonth} className={styles.navButton}>{"<"}</button>
-                <h2 className={styles.title}>{format(currentDate, "MMM yyyy")}</h2>
+                <h2 className={styles.date}>{format(currentDate, "MMM yyyy")}</h2>
                 <button onClick={handleNextMonth} className={styles.navButton}>{">"}</button>
             </div>
             <div className={styles.grid}>
