@@ -10,6 +10,7 @@ function Home() {
 
     return (
         <div className={styles.container}>
+            <h1 className={styles.mainTitle}>Some Title</h1>
             <div className={styles.block} onClick={() => handleClick('/smart-eater/meal-logger')}>
                 <h1 className={styles.title}>Meal Logger</h1>
                 <p className={styles.description}>Log your meals</p>
