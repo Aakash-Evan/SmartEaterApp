@@ -101,6 +101,20 @@
     margin-right: 10px;
 }
 
+.mealListItem {
+    border: solid;
+    margin: 10px;
+    padding: 10px;
+}
+
+.mealNameAndTime {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1.75px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
 .closeButton {
     background: none;
     border: none;
