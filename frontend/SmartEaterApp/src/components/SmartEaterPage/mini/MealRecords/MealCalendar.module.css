@@ -105,7 +105,10 @@
     background: none;
     border: none;
     font-size: 20px;
+    font-weight: bold;
     cursor: pointer;
+    width: 30px;
+    color: rgb(202, 9, 9);
 }
 
 .modalHeader {
@@ -113,6 +116,9 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
 }
 
 .modalHeader h3 {
