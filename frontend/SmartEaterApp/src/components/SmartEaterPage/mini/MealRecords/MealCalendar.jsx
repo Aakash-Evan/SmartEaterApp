@@ -243,17 +243,17 @@ function MealCalendar() {
                     <ul className={styles.mealList}>
                         {mealList.map((meal) => (
                             <li key={meal._id} className={styles.mealListItem}>
-                                <div onClick={() => handleMealClick(meal)}>
+                                <div onClick={() => handleMealClick(meal)} className={styles.mealDetails}>
                                     <p className={styles.mealNameAndTime}>{meal.name} - {meal.time}</p>
                                     <p>Number of meal items: {meal.numMealItems}</p>
-                                    <ul>
+                                    <ul className={styles.mealItemsList}>
                                         {meal.mealItems.map((item, index) => (
                                             <li key={index}>
                                                 <strong>{item.name}</strong>: {item.amount} {item.unit} - {item.description}
                                             </li>
                                         ))}
                                     </ul>
-                                    <button onClick={() => handleDeleteMeal(meal._id)}>Delete</button>
+                                    <button onClick={() => handleDeleteMeal(meal._id)} className={styles.deleteMealBtn}>Delete</button>
                                 </div>
                             </li>
                         ))}
