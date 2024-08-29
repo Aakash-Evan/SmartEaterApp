@@ -1,3 +1,5 @@
+@import '../../../../vars.css';
+
 .container {
     display: flex;
     flex-direction: column;
@@ -103,6 +105,8 @@
 
 .mealListItem {
     border: solid;
+    border-radius: 5px;
+    background-color: var(--color-bg);
     margin: 10px;
     padding: 10px;
 }
