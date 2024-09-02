@@ -89,6 +89,7 @@ function MealCalendar() {
         setMealForm({
             name: meal.name,
             time: meal.time,
+            date: meal.date,
             mealItems: meal.mealItems,
         });
         setIsEditing(true);
@@ -200,9 +201,19 @@ function MealCalendar() {
                             />
                         </div>
                         <div>
+                            <label>Meal Date:</label>
+                            <input 
+                                type="date"
+                                className="form-control"
+                                value={mealForm.date}
+                                onChange={(e) => setMealForm({ ...mealForm, date: e.target.value })}
+                            />
+                        </div>
+                        <div>
                             <label>Meal Time:</label>
                             <input
-                                type="text"
+                                type="time"
+                                className="form-control"
                                 value={mealForm.time}
                                 onChange={(e) => setMealForm({ ...mealForm, time: e.target.value })}
                             />
