@@ -8,10 +8,9 @@ const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 // TODO: Add a "go to current month button" that takes you to the current month
 // TODO: Have time be displayed with am and pm instead of military time
-// TODO: Make meals render in chonological order, not order it was entered
 // TODO: Style how the meal information is displayed
 // TODO: If overflow happens, have scrolling like it is in the meal logger
-// TODO: Stylle the form when the edit button is clicked to make it look nice
+// TODO: Style the form when the edit button is clicked to make it look nice
 
 function MealCalendar() {
     const { user } = useUser();
