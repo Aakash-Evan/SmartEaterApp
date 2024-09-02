@@ -8,7 +8,7 @@ const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 // TODO: Add a "go to current month button" that takes you to the current month
 // TODO: Have time be displayed with am and pm instead of military time
-// TODO: Make edit meal button visibile
+// TODO: Make meals render in chonological order, not order it was entered
 // TODO: Style how the meal information is displayed
 // TODO: If overflow happens, have scrolling like it is in the meal logger
 // TODO: Stylle the form when the edit button is clicked to make it look nice
@@ -36,6 +36,7 @@ function MealCalendar() {
         setCurrentDate(prevDate => addMonths(prevDate, 1));
     };
 
+    // Gets the data from the database
     const getData = useCallback(async () => {
         if (user) {
             try {
@@ -69,10 +70,20 @@ function MealCalendar() {
 
     const handleDayClick = (day) => {
         const dayString = format(day, "yyyy-MM-dd");
+        const mealsForDay = mealsByDay[dayString] || [];
+    
+        // Sort meals by time
+        const sortedMeals = mealsForDay.sort((a, b) => {
+            const timeA = new Date(`1970-01-01T${a.time}`);
+            const timeB = new Date(`1970-01-01T${b.time}`);
+            return timeA - timeB;
+        });
+    
         setSelectedDay(dayString);
-        setMealList(mealsByDay[dayString] || []);
+        setMealList(sortedMeals);
         setShowModal(true);
     };
+    
 
     const handleMealClick = (meal) => {
         setSelectedMeal(meal);
