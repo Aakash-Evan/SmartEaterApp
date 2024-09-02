@@ -244,7 +244,7 @@ function MealCalendar() {
                         {mealList.map((meal) => (
                             <li key={meal._id} className={styles.mealListItem}>
                                 {/* Clicking this div opens the edit meal form */}
-                                <div onClick={() => handleMealClick(meal)} className={styles.mealDetails}>
+                                <div className={styles.mealDetails}>
                                     <p className={styles.mealNameAndTime}>{meal.name} - {meal.time}</p>
                                     <p>Number of meal items: {meal.numMealItems}</p>
                                     <ul className={styles.mealItemsList}>
@@ -254,6 +254,7 @@ function MealCalendar() {
                                             </li>
                                         ))}
                                     </ul>
+                                    <button onClick={() => handleMealClick(meal)} className={styles.editMealBtn}>Edit</button>
                                     <button onClick={() => handleDeleteMeal(meal._id)} className={styles.deleteMealBtn}>Delete</button>
                                 </div>
                             </li>
