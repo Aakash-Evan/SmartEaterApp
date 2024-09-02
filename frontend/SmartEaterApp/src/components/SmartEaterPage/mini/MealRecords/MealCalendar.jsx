@@ -262,9 +262,9 @@ function MealCalendar() {
             ) : (
                 <div>
                     <ul className={styles.mealList}>
+                        {mealList.length === 0 && <li className={styles.mealListItem}>No meals recorded yet...</li>}
                         {mealList.map((meal) => (
                             <li key={meal._id} className={styles.mealListItem}>
-                                {/* Clicking this div opens the edit meal form */}
                                 <div className={styles.mealDetails}>
                                     <p className={styles.mealNameAndTime}>{meal.name} - {meal.time}</p>
                                     <p>Number of meal items: {meal.numMealItems}</p>
